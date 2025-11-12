@@ -1,0 +1,54 @@
+Contains Duplicate II - Leetcode #219
+Độ khó: Dễ
+Tag: Array, HashTable, Sliding Window
+
+1. Tóm tắt đề bài: "Tìm 2 index có giá trị bằng nhau và abs(i - j) <= k"
+
+2. Điều kiện & Ràng buộc
+- `1 <= nums.length <= 105`
+- `-109 <= nums[i] <= 109`
+- `0 <= k <= 105`
+
+3. Tư duy giải quyết
+
+a. Brute-force
+
+- Sử dụng 2 vòng lặp, so sánh từng cặp giá trị và trị tuyệt đối của 2 index trừ nhau có <= k
+- Pseudocode:
+    loop i = 0 -> n - 1:
+        loop j = i + 1 -> n - 1:
+            if [i] = [j] & |i - j| <= k 
+                return true
+
+    return false
+
+- Time Complexity: O(n^2) - nested 'for' loop
+- Space Complexity: O(1) - chỉ sử dụng các biến tạm
+
+---
+
+b. HashMap
+
+- Sử dụng `HashMap` để lưu 'giá trị, index' -> key: val
+    - Duyệt qua từng phần tử trong mảng
+        - Kiểm tra 'key' có tồn tại trong `HashMap` hay chưa
+            - Nếu có, kiểm tra xem index hiện tại và val của key đó có thỏa mãn điều kiện '|i - key| <= k'
+                - Có trả 'true'
+                - Nếu không thêm vào `HashMap`
+
+    - Nếu duyệt qua hết nhưng không thỏa mãn, trả về 'false'
+
+- Pseudocode:
+
+    map = {}
+
+    loop i = 0 -> n - 1:
+        if (map.containsKey([i]) && | i - map.get([i]) | <= k)
+            return true
+
+        map.put([i], i)
+
+    return false
+
+- Time Complexity: O(n) - chỉ lặp qua mảng 1 lần
+- Space Complexity: O(n) - sử dụng HashMap

@@ -1,0 +1,33 @@
+Two Sum - Leetcode #1
+Độ khó: Dễ
+Tags: Arrays, HashTable
+
+1. Tóm tắt đề bài: "Tìm hai số trong mảng có tổng bằng `target`, trả về index của chúng trong mảng" 
+
+2. Điều kiện & Ràng buộc:
+- Chỉ có duy nhất 1 giải pháp tồn tại.
+- Không dùng 1 phần tử 2 lần.
+- Kết quả trả về của index có thể ở bất kì thứ tự nào.
+- `2 <= nums.length <= 10^4`
+- `-10^9 <= nums[i], target <= 10^9`
+
+3. Tư duy giải quyết
+
+- Đơn giản nhất, so sánh tổng của từng cặp giá trị trong mảng.
+    - Sử dụng 'nested for loop', để duyệt qua từng cặp giá trị trong mảng
+        - Sử dụng `if`, để kiểm tra tổng của từng cặp giá trị có bằng `target` không
+            - Nếu có trả về mảng mới, với index của 2 giá trị đó
+    - Nếu không tồn tại cặp giá trị thõa mãn, trả về mảng rỗng.
+
+    Time Complexity: O(N^2), duyệt từng cặp giá trị
+    Space Complexity: O(1), chỉ có các biến tạm.
+
+- Thay vì, đi tìm từng cặp giá trị, ta duyệt qua từng phần tử và tìm phần bù (complement = target - num)
+    - Duyệt qua từng phần tử trong mảng
+        - Sử dụng `HashMap` để lưu 'giá trị, index' -> key: value của mỗi phần tử trong mảng
+            - Kiểm tra xem 'complement' đã tồn tại chưa
+                - Nếu có, trả về cặp index (complement, index)
+                - Nếu chưa, thêm vào `HashMap`.
+
+    Time Complexity: O(N), có thể duyệt đến cuối mảng để tìm thấy phần bù.
+    Space Complexity: O(N), sử dụng HashMap.

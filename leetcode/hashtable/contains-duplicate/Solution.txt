@@ -1,0 +1,49 @@
+Contains Duplicate - Leetcode #217
+Độ khó: Dễ
+Tag: Arrays, HashTable, Sorting
+
+1. Tóm tắt đề bài: "Kiểm tra các phần tử trong mảng có trùng lặp không, trả về true | false"
+
+2. Điều kiện & Ràng buộc:
+- `1 <= nums.length <= 105`
+- `-109 <= nums[i] <= 109`
+
+3. Tư duy giải quyết
+
+a. Brute-force
+
+- Đơn giản nhất, so sánh giá trị của từng cặp giá trị trong mảng.
+    - Sử dụng 'nested for loop', để duyệt qua từng cặp giá trị trong mảng
+        - Sử dụng `if`, để kiểm tra từng cặp giá trị có bằng nhau không
+            - Nếu có trả về 'true'.
+    - Nếu không tồn tại cặp giá trị thõa mãn, trả về 'false'.
+
+    Time Complexity: O(N^2), duyệt từng cặp giá trị
+    Space Complexity: O(1), chỉ có các biến tạm.
+
+---
+
+b. So sánh chiều dài của HashSet và input array
+
+-  Sử dụng bản chất của `HashSet` - không lưu trữ giá trị trùng lặp
+    - Sử dụng vòng lặp, duyệt và thêm các phần tử vào `HashSet`.
+    - So sánh độ dài của `HashSet` và `nums`.
+        - Nếu bằng nhau, trả về 'true'.
+        - Nếu không, trả về 'fasle'.
+
+    Time Complexity: O(N), chỉ duyệt qua mảng 1 lần
+    Space Complexity: O(N), sử dụng HashSet
+
+---
+
+c. HashSet
+
+- Sử dụng `HashSet` nhưng kiểm tra sự tồn tại của mỗi phần tử trong `HashSet`
+    - Duyệt qua từng phần tử trong mảng.
+        - Kiểm tra xem phần tử có tồn tại trong `HashSet`.
+            - Có trả về 'true'
+        - Nếu không, thêm phần tử vào `HashSet`.
+    - Duyệt hết mảng nhưng không thỏa mãn điều kiện, trả về `false`.
+
+    Time Complexity: O(N), chỉ duyệt qua mảng 1 lần
+    Space Complexity: O(N), sử dụng HashSet

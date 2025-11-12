@@ -1,0 +1,58 @@
+Reverse Linked List - Leetcode #206
+Độ khó: Dễ
+Tag: LinkedList, Recursion
+
+1. Tóm tắt đề bài: "Đảo chiều một danh sách liên kết đơn"
+
+Ex: 'head -> 1 -> 2 -> 3 -> 4 -> 5'
+
+=>  'head -> 5 -> 4 -> 3 -> 2 -> 1'
+
+2. Điều kiện & Ràng buộc
+- `The number of nodes in the list is the range [0, 5000].`
+- `-5000 <= Node.val <= 5000`
+
+3. Tư duy giải quyết
+
+Để đảo chiều linked list, ta cần thay đổi hướng con trỏ `.next` của từng node sao cho:
+node hiện tại trỏ ngược về node trước đó.
+
+Sử dụng 3 con trỏ tạm thời để quản lý việc hoán đổi liên kết:
+    - `cur` → node hiện tại (đang xử lý)
+    - `bef` → node trước đó
+    - `aft` → node sau (dùng để lưu trước khi đổi chiều)
+
+Bắt đầu bef = null, cur = head
+Mỗi bước lặp:
+    Lưu node sau → aft = cur.next
+    Đảo liên kết → cur.next = bef
+    Tiến 1 bước →
+        bef = cur
+        cur = aft
+Tiếp tục cho đến khi cur == null.
+
+Mô phỏng: 
+| Bước | bef  | cur | aft  | cur.next | Danh sách tạm |
+| ---- | ---- | --- | ---- | -------- | ------------- |
+| 1    | null | 1   | 2    | 1 → null | 1 → null      |
+| 2    | 1    | 2   | 3    | 2 → 1    | 2 → 1 → null  |
+| 3    | 2    | 3   | 4    | 3 → 2    | 3 → 2 → 1     |
+| 4    | 3    | 4   | null | 4 → 3    | 4 → 3 → 2 → 1 |
+
+Kết thúc: bef là đầu mới của danh sách.
+
+
+- Pseudocode:
+    cur = head, bef = null
+
+    while cur != null:
+        aft = cur.next
+        cur.next = bef
+        bef = cur
+        cur = aft
+
+    return bef
+
+Time Complexity: O(n) - duyệt hết danh sách
+Space Complexity: O(1) - chỉ sử dụng biến tạm (do ListNode là dữ liệu đầu vào có sẵn,
+                                không tính là bộ nhớ phụ được tạo thêm trong thuật toán.)
