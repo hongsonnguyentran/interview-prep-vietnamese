@@ -1,8 +1,33 @@
-Độ khó: 
-Tag: 
+Move Zeroes - Leetcode #283
+Độ khó: Dễ
+Tag: Arrays, Two Pointers
 
-1. Tóm tắt đề bài
+1. Tóm tắt đề bài: "Di chuyển các số '0' về cuối danh sách và duy trình thứ tự của các số không phải số '0'."
 
 2. Điều kiện & Ràng buộc
+- Không được tạo `arrays` mới, xử lý trong `arrays` hiện tại.
+- `1 <= nums.length <= 104`
+- `-231 <= nums[i] <= 231 - 1`
 
 3. Tư duy giải quyết
+
+- Sử dụng hai con trỏ:
+    - index: vị trí tiếp theo để đặt phần tử khác 0.
+    - cur: duyệt qua từng phần tử trong mảng.
+
+- Di chuyển các số khác 0
+    - Duyệt qua từng phần tử của mảng, bằng `cur`
+        - Nếu [cur] != 0
+            - Gán [index] = [cur]
+            - tăng index lên 1
+
+=> [1,3,12,3,12] (index = 3)
+
+- Gán giá trị 0 cho các index còn lại
+    - Sau khi kết thúc vòng lặp trên, duyệt từ index cho đến cuối mảng
+        - Gán toàn bộ giá trị = 0
+
+=> [1,3,12,0,0]
+
+Time Complexity: O(n + m) - duyệt qua mảng 1 lần và duyệt từ index -> cuối mảng.
+Space Complexity: O(1) - chỉ sử dụng biến tạm.

@@ -17,17 +17,18 @@ public class Solution {
         }
     }
 
-    static ListNode reverseList(ListNode head) {
-        ListNode before = null;
-        ListNode cur = head;
+    public boolean hasCycle(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
 
-        while (cur != null) {
-            ListNode after = cur.next; // Lưu trữ nút tiếp theo
-            cur.next = before;         // Đảo ngược con trỏ
-            before = cur;              // Di chuyển before về trước
-            cur = after;               // Di chuyển cur về trước
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if (slow == fast) {
+                return true;
+            }
         }
-        
-        return before; // before sẽ là đầu của danh sách đảo ngược
+        return false;
     }
 }

@@ -1,0 +1,51 @@
+Reverse Vowels of a String - Leetcode #345
+Độ khó: Dễ 
+Tag: String, Two Pointers
+
+1. Tóm tắt đề bài
+    Cho một chuỗi s, hãy đảo ngược vị trí các nguyên âm (vowels) trong chuỗi, nhưng giữ nguyên vị trí của các ký tự còn lại.
+    Trả về chuỗi mới sau khi đảo.
+
+2. Điều kiện & Ràng buộc
+- `1 <= s.length <= 3 * 105`
+- `s consist of printable ASCII characters.`
+
+3. Tư duy giải quyết
+
+- Sử dụng hai con trỏ: một từ đầu chuỗi (left) và một từ cuối chuỗi (right).
+- Di chuyển cả hai con trỏ về phía nhau cho đến khi chúng gặp nhau.
+
+- Xác định nguyên âm
+    - Tạo một chuỗi chứa tất cả nguyên âm (cả chữ hoa và chữ thường).
+
+- Trong khi left < right:
+    - Di chuyển left sang phải cho đến khi tìm thấy một nguyên âm.
+    - Di chuyển right sang trái cho đến khi tìm thấy một nguyên âm.
+    - Nếu left < right, hoán đổi hai ký tự nguyên âm tại vị trí left và right.
+    - Tăng left lên 1 và giảm right xuống 1.
+
+Pseudocode:
+    chars = s.toCharArray
+    left = 0
+    right = chars.length - 1
+    vowels = "aeiouAEIOU"
+
+    loop until left >= right
+        loop until left >= right & vowels.indexOf(chars[left]) == - 1
+            left++
+        
+        loop until left >= right & vowels.indexOf(chars[right]) == - 1
+            right--
+
+        if left < right
+            char temp = chars[left]
+            chars[left] = chars[right]
+            chars[right] = temp
+            left++
+            right--
+
+
+    return new String chars
+
+Time Complexity: O(n) - vì mỗi con trỏ di chuyển qua tối đa n ký tự
+Space Complexity: O(1) - chỉ sử dụng biến tạm

@@ -1,0 +1,44 @@
+Greatest Common Divisor of Strings - Leetcode #1071
+Độ khó: Dễ 
+Tag: String, Math
+
+1. Tóm tắt đề bài
+Tìm ước số chung lớn nhất của hai chuỗi ký tự.
+Khái niệm "ước số" ở đây được hiểu là một chuỗi con mà khi lặp lại n lần sẽ tạo ra chuỗi gốc.
+
+Ví dụ: Chuỗi "ABCABC" có ước là "ABC" vì "ABC" * 2 = "ABCABC".
+
+2. Điều kiện & Ràng buộc
+- `1 <= str1.length, str2.length <= 1000`
+- `str1 and str2 consist of English uppercase letters.`
+
+3. Tư duy giải quyết
+
+- So sánh xem 2 chuỗi có ước chung không
+    - nối str1 với str2, so sánh nó với str2 với str1
+        - Nếu không bằng nhau, trả về "".
+
+- Tìm độ dài của ước chung lớn nhất
+    - Sử dụng thuật toán Euclid để tìm ra độ dài của ước chung lớn nhất
+    -> gcdLength
+
+- Trả về subtring 0 -> gcdLength
+
+Pseudocode:
+    len1 = str1.length
+    len2 = str2.length
+    concat1 = str1 + str2
+    concat2 = str2 + str1
+
+    if (!concat1.equals(concat2)):
+        return ""
+
+    while(len2 != 0):
+        temp = len2
+        len2 = len1 % len2
+        len1 = temp
+
+    return subtring(0, len1)
+
+Time Complexity:  O(m + n) cho string concatenation + O(log(min(m,n))) cho Euclid
+Space Complexity: O(m + n) cho string concatenation

@@ -1,8 +1,62 @@
-Độ khó: 
-Tag: 
+Linked List Cycle - Leetcode # 
+Độ khó: Dễ 
+Tag: LinkedList, Đệ quy - Recursion
 
-1. Tóm tắt đề bài
+1. Tóm tắt đề bài: " Cho một danh sách liên kết, hãy xác định xem danh sách đó có chu kỳ (cycle) hay không.
+                   Chu kỳ xảy ra khi một node trong danh sách trỏ trở lại một node trước đó thay vì null. "
+                => Xác định xem có node nào trỏ ngược về 1 node bất kì trước đó hay không"
 
 2. Điều kiện & Ràng buộc
+- `The number of the nodes in the list is in the range [0, 104].`
+- `-105 <= Node.val <= 105`
+- `pos là -1 (nếu không có cycle) hoặc là index của node mà tail trỏ về`
 
 3. Tư duy giải quyết
+
+    a. Sử dụng HashSet
+
+    - Lưu lại từng node đã duyệt qua. Nếu gặp lại cùng node (object reference) → có cycle.
+
+    - Cho duyệt qua các node trong `head`
+        - Kiểm tra head đã tồn tại trong `HashSet` chưa
+            - Có, trả về `true`
+            - Không, thêm node vào `HashSet`
+        - Di chuyển head tới node tiếp theo
+
+    - Đến node cuối mà không có node trùng lặp, trả về false
+
+    Pseudocode:
+        visited = {}
+
+        loop until head == null
+            if visited.contains(head)
+                return true
+            
+            visited.add(head)
+
+            head = head.next
+
+        return false
+
+    Time Complexcity: O(n) - duyệt hết danh sách
+    Space Complexcity: O(n) - sử dụng HashSet
+
+    b. Floyd’s Cycle Detection - Two Pointers
+
+    - Sử dụng 2 con trỏ
+        - slow: mỗi vòng đi 1 bước
+        - fast: mỗi vòng đi 2 bước
+
+    - Nếu có chu kỳ, sớm muộn gì slow và fast cũng gặp nhau.
+
+    Pseudocode:
+        slow, fast = head
+
+        loop until fast && fast.next == null
+            slow = slow.next;
+            fast = fast.next.next;
+        
+        return slow = fast;
+    
+    Time Complexity: O(n) - duyệt hết danh sách
+    Space Complexity: O(1) - chỉ sử dụng biến tạm

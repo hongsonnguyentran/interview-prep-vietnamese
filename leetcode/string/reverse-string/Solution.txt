@@ -1,0 +1,35 @@
+Reverse String - Leetcode #344
+Độ khó: Dễ 
+Tag: String, Two Pointers
+
+1. Tóm tắt đề bài: 
+    Cho một mảng ký tự s, hãy đảo ngược mảng này tại chỗ (in-place).
+    Không được tạo mảng mới, chỉ được thay đổi trực tiếp trong s.
+
+2. Điều kiện & Ràng buộc
+- `1 <= s.length <= 105`
+- `s[i] is a printable ascii character.`
+
+3. Tư duy giải quyết
+
+- Sử dụng 2 con trỏ:
+    - left chạy từ đầu mảng
+    - right chạy từ cuối mảng
+
+- Trong khi, left < right
+    - Swap giá trị giữa left và right
+    - Tăng left lên 1 
+    - Giảm right xuống 1
+
+Pseudocode:
+    int left = 0, right = s.length - 1 
+
+    while left < right:
+        temp = [left]
+        [left] = [right]
+        [right] = temp
+        left++
+        right--
+        
+Time Complexity: O(n) - vì mỗi con trỏ di chuyển qua tối đa n ký tự
+Space Complexity: O(1) - chỉ sử dụng biến tạm
