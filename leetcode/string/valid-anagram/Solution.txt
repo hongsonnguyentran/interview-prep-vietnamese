@@ -1,0 +1,124 @@
+Valid Anagram
+Độ khó: Dễ
+Tag: String, Sorting, HashTable
+
+1. Tóm tắt đề bài
+- Cho hai chuỗi ký tự s và t. Kiểm tra xem chúng có phải là anagram của nhau không.
+- Anagram là khi hai chuỗi có cùng các ký tự và số lần xuất hiện của mỗi ký tự giống hệt nhau,
+chỉ khác về thứ tự sắp xếp.
+
+2. Điều kiện & Ràng buộc
+- '1 <= s.length, t.length <= 5 * 104'
+- 's and t consist of lowercase English letters.'
+3. Tư duy giải quyết
+
+Nếu 2 chuỗi có độ dài khác nhau thì chúng không phải là 'anagram' của nhau.
+
+---
+
+Phương pháp sorting
+
+- Sort 2 chuỗi rồi so sánh
+    - Convert 2 chuỗi về mảng 'char' - toCharArray()
+    - Sử dụng method 'sort' - Arrays.sort()
+    - Convert 2 mảng đã sort về chuỗi - Arrays.toString()
+    - So sánh 2 chuỗi đã sort. - equals()
+
+- Time Complexity: O(n log n), sử dụng 'sort'.
+- Space Conplexity: O(1), chỉ dùng các biến tạm.
+
+---
+
+Phương pháp HashMap
+
+- Sử dụng HashMap để đếm tần suất xuất hiện của từng ký tự.
+- Mỗi ký tự là key, số lần xuất hiện là value.
+
+- Đếm ký tự trong chuỗi thứ nhất (s)
+    - Duyệt qua từng ký tự - 'c' trong chuỗi s
+        - Với mỗi ký tự 'c':
+            - Nếu 'c' đã có trong HashMap: lấy số đếm hiện tại + 1
+            - Nếu 'c' chưa có trong HashMap: coi như số đếm = 0 + 1
+            - Cập nhật lại số đếm mới vào HashMap
+
+- Kiểm tra của chuỗi 't'
+    - Duyệt qua từng ký tự - 'c' trong chuỗi t
+        - Với mỗi ký tự 'c':
+            - Kiểm tra tồn tại: Nếu 'c' không có trong HashMap → chuỗi t có ký tự mà s không có → KHÔNG PHẢI anagram
+            - Giảm số đếm: Trừ 1 từ số lần xuất hiện của ký tự 'c'
+            - Dọn dẹp: Nếu số đếm = 0, xóa ký tự đó khỏi HashMap
+
+- Kiểm tra 'anagram'
+    - Nếu HashMap rỗng: tất cả ký tự đã được "trả" đủ → LÀ anagram
+    - Nếu HashMap không rỗng: còn ký tự thừa → KHÔNG PHẢI anagram
+
+- Time Conplexity: O(N), chỉ cần duyệt qua mỗi chuỗi một lần.
+- Space Complexity: O(k), với 'k' là số ký tự duy nhất (tối đa 26 cho chữ cái thường).
+
+---
+
+Phương pháp mảng tần số
+
+- Ý tưởng cốt lõi:
+    - Sử dụng mảng cố định 26 phần tử để đếm tần suất xuất hiện của 26 chữ cái tiếng Anh thường.
+    - Mỗi vị trí trong mảng tương ứng với một chữ cái, giá trị tại vị trí đó là số lần xuất hiện.
+
+- Các bước thực hiện:
+    - Tạo mảng 26 phần tử, mỗi phần tử đại diện cho một chữ cái từ 'a' đến 'z'.
+    - Mảng này sẽ lưu số lần xuất hiện của từng ký tự.
+
+    - Đếm ký tự trong chuỗi thứ nhất (s):
+        - Duyệt qua từng ký tự c trong chuỗi s
+        - Với mỗi ký tự c:
+            - Tính chỉ số mảng: c - 'a'
+            - Tăng giá trị tại vị trí đó lên 1: freq[c - 'a']++
+
+    * Giải thích phép toán "c - 'a'"
+        - Trong Java, mỗi ký tự char có giá trị số nguyên (mã ASCII)
+        - 'a' có giá trị = 97, 'b' = 98, 'c' = 99, ..., 'z' = 122
+        - Phép tính c - 'a' chuyển đổi ký tự thành chỉ số mảng:
+        - 'a' - 'a' = 97 - 97 = 0 → freq[0] (đếm chữ 'a')
+        - 'b' - 'a' = 98 - 97 = 1 → freq[1] (đếm chữ 'b')
+        - 'c' - 'a' = 99 - 97 = 2 → freq[2] (đếm chữ 'c')
+        ...
+        - 'z' - 'a' = 122 - 97 = 25 → freq[25] (đếm chữ 'z')      
+    *
+
+    * Ví dụ: Với t = "nagaram" và mảng freq hiện có:
+        Ký tự: a -> chỉ số 0 -> freq[0] từ 0 thành 1
+        Ký tự: n -> chỉ số 13 -> freq[13] từ 0 thành 1  
+        Ký tự: a -> chỉ số 0 -> freq[0] từ 1 thành 2
+        Ký tự: g -> chỉ số 6 -> freq[6] từ 0 thành 1
+        Ký tự: r -> chỉ số 17 -> freq[17] từ 0 thành 1
+        Ký tự: a -> chỉ số 0 -> freq[0] từ 2 thành 3
+        Ký tự: m -> chỉ số 12 -> freq[12] từ 0 thành 1
+    *
+
+    - Kiểm tra chuỗi thứ hai (t)
+        - Duyệt qua từng ký tự c trong chuỗi t
+        - Với mỗi ký tự c:
+            - Giảm số đếm: Tính chỉ số c - 'a' và giảm giá trị tại vị trí đó đi 1
+            - Kiểm tra âm: Nếu giá trị trở thành âm → chuỗi t có nhiều ký tự này hơn chuỗi s → KHÔNG PHẢI anagram
+
+
+    * Với t = "nagaram" và mảng freq hiện có:
+        freq[0]=3, freq[6]=1, freq[12]=1, freq[13]=1, freq[17]=1
+
+        Kiểm tra từng ký tự trong t:
+        - 'n' (chỉ số 13): freq[13] từ 1 thành 0 → OK
+        - 'a' (chỉ số 0): freq[0] từ 3 thành 2 → OK
+        - 'g' (chỉ số 6): freq[6] từ 1 thành 0 → OK  
+        - 'a' (chỉ số 0): freq[0] từ 2 thành 1 → OK
+        - 'r' (chỉ số 17): freq[17] từ 1 thành 0 → OK
+        - 'a' (chỉ số 0): freq[0] từ 1 thành 0 → OK
+        - 'm' (chỉ số 12): freq[12] từ 1 thành 0 → OK
+
+        Không có giá trị nào âm → tiếp tục
+    *
+
+    - Kiểm tra kết quả
+        - Đơn giản trả về 'true'
+        - Tại sao không cần kiểm tra thêm?
+            - Đã kiểm tra độ dài ở bước 1 (2 chuỗi cùng độ dài)
+            - Đã kiểm tra không có giá trị âm ở bước 4
+                → Tất cả giá trị trong mảng phải = 0 → LÀ anagram
