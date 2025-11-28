@@ -1,0 +1,37 @@
+Valid Palindrome
+Độ khó: Dễ
+Tag: String, Two Pointers
+
+1. Tóm tắt đề bài
+    Cho một chuỗi bất kỳ, xác định xem chuỗi đó có phải là palindrome hay không sau khi:
+        - Loại bỏ toàn bộ ký tự không phải chữ cái và số.
+        - Không phân biệt chữ hoa chữ thường.
+        
+2. Điều kiện & Ràng buộc
+    - Input: một chuỗi có thể chứa chữ cái, số, khoảng trắng, ký tự đặc biệt.
+    - Yêu cầu: chỉ xét chữ cái và số, chuyển về lowercase, sau đó kiểm tra tính đối xứng.
+    - Độ phức tạp yêu cầu phù hợp: O(n), với n là độ dài chuỗi sau xử lý.
+    - Không có yêu cầu dùng thêm bộ nhớ lớn.
+
+3. Tư duy giải quyết
+
+    1. Xử lý chuỗi
+    - Loại bỏ ký tự không phải chữ cái hoặc số.
+    - Chuyển toàn bộ ký tự còn lại về lowercase.
+
+        Hai cách thực hiện:
+            Cách 1: RegEx
+                - Dùng 'replaceAll' để giữ lại chỉ [A-Za-z0-9].
+                - Chuỗi kết quả được chuyển về lowercase.
+                - Kiểm tra palindrome bằng two pointers.
+            Cách 2: Duyệt thủ công dùng Character.isLetterOrDigit
+                - Duyệt hai phía 'left' và 'right'.
+                - Bỏ qua ký tự không hợp lệ ở mỗi phía.
+                - Khi gặp ký tự hợp lệ, so sánh lowercase của hai ký tự.
+                - Nếu không khớp → không phải palindrome.
+                - Nếu duyệt hết → là palindrome.
+
+    2. So sánh bằng hai con trỏ
+        - 'left' bắt đầu từ đầu chuỗi, 'right' từ cuối chuỗi.
+        - Tăng 'left', giảm 'right' sau mỗi lần so sánh hợp lệ.
+        - Dừng khi 'left' ≥ 'right'.
