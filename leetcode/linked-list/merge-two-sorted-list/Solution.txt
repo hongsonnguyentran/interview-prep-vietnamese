@@ -1,0 +1,53 @@
+Merge Two Sorted LinkedList
+Độ khó: Dễ
+Tag: LinkedList, Đệ quy
+
+1. Tóm tắt đề bài:
+- Cho hai singly linked list đã được sắp xếp tăng dần.
+- Nhiệm vụ là gộp chúng thành một linked list mới cũng theo thứ tự tăng dần.
+- Không tạo node mới nếu không cần thiết; ưu tiên liên kết lại các node có sẵn.
+
+2. Điều kiện & Ràng buộc
+- Hai danh sách đầu vào đã được sắp xếp tăng dần.
+- Danh sách có thể rỗng.
+- Không được thay đổi giá trị node, chỉ thay đổi liên kết next.
+- Thời gian yêu cầu: O(n + m) với n và m là số node của hai danh sách.
+- Không gian:
+    - Có thể làm theo cách iterative với O(1) extra space.
+    - Hoặc cách đệ quy, tạo call stack O(n + m).
+
+3. Tư duy giải quyết
+
+    a. Iterative
+    - Nếu 1 trong 2 rỗng -> trả về 'list' còn lại.
+
+    - Tạo 'dummy' node để tracking điểm đầu của list mới. => Tương tự 'head'
+    - Tạo 'tail' node, trỏ vào node cuối của danh sách đã merge.
+        - Để thao tác mà không thay đổi 'dummy'
+        => Tương tự 'cur'
+
+    - Lặp qua từng phần từ trong cả 2 list, dừng lại khi list1 & list2 di chuyển đến node cuối
+        - So sánh 'val'
+            - Nếu list1 >= list2
+                - Nối 'tail' với list1
+                - Di chuyển 'list1' lên vị trí tiếp theo
+            - Nếu list1 < list2
+                - Nối 'tail' với list2
+                - Di chuyển 'list2' lên vị trí tiếp theo 
+        - Sau khi nối 'tail', di chuyển 'tail' lên vị trí node mới thêm vào
+
+    - Kiểm tra nếu list1 hoặc list2 còn node
+        - Nối tail vào node đó
+
+    - Trả về 'dummy.next'
+        - Trả đúng đầu list mới.
+        - 'dummy' là node giả, phần thật bắt đầu từ node tiếp theo.
+
+    _Mô hình_
+        dummy -> (node thật 1) -> (node thật 2) -> ...
+        ^
+        tail (ban đầu)
+    --------------------------------------------------
+
+    Time Complexity: O(n+m), duyệt qua các node của cả hai list
+    Space Complexity: O(1)
